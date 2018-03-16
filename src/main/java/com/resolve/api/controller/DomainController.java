@@ -5,6 +5,7 @@
  */
 package com.resolve.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.resolve.api.model.Domain;
 import com.resolve.api.service.DomainService;
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ public class DomainController {
     DomainService domainServiceDao;
 
     //GET DOMAIN LIST
-    @RequestMapping(value = "/domain", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/domain", method = RequestMethod.GET, 
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Domain>> listAllDomains() {
         return new ResponseEntity<>(domainServiceDao.getDomains(), HttpStatus.OK);
     }
@@ -52,7 +54,7 @@ public class DomainController {
     //POST DOMAIN
     @RequestMapping(name = "/domain", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Void> createDomain(@RequestBody Domain domain,  UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createDomain(@RequestBody Domain domain, UriComponentsBuilder ucBuilder) {
 //        if (userService.isUserExist(user)) {
 //            System.out.println("A User with name " + user.getName() + " already exist");
 //            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -60,7 +62,24 @@ public class DomainController {
         domainServiceDao.save(domain);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/domain/{id}").buildAndExpand(domain.getId()).toUri());
-        
+
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/domain/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Domain> updateDomain(@PathVariable("id") long id, @RequestBody Domain domain) {
+
+        //First check is there any domain exist if not then NOT_FOUND
+        domainServiceDao.update(id, domain);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> deleteDomain(@PathVariable("id") long id) {
+
+        //First check is there any domain exist if not then NOT_FOUND
+        domainServiceDao.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
