@@ -11,10 +11,19 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:component-scan base-package="com.resolve.api" />
     <mvc:annotation-driven />
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/pages/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
     <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
-        <property name="username" value="apiresolve"></property>
+        <property name="username" value="dummyapi"></property>
         <property name="password" value="123"></property>
     </bean>
     <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">

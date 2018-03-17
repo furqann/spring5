@@ -6,7 +6,6 @@
 package com.resolve.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**

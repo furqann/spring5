@@ -75,11 +75,10 @@ public class DomainController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/domain/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteDomain(@PathVariable("id") long id) {
-
         //First check is there any domain exist if not then NOT_FOUND
         domainServiceDao.delete(id);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

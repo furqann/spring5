@@ -65,7 +65,12 @@ public class DomainServiceImpl implements DomainService {
             public Domain extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Domain domain = null;
                 if (rs.next()) {
-                    domain = new Domain(rs.getLong("ID"), rs.getString("NAME"));
+                    domain = new Domain(rs.getLong("ID"),
+                        rs.getString("NAME"),
+                        rs.getDate("created_at"),
+                        rs.getDate("updated_at"),
+                        rs.getByte("isdeleted")
+                );
                 }
                 return domain;
             }
@@ -98,7 +103,8 @@ public class DomainServiceImpl implements DomainService {
 
     @Override
     public void delete(long id) {
-
+        String query ="update domain set isdeleted = 1 where id = ?";
+        template.update(query,id);
     }
 
 }
