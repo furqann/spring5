@@ -10,9 +10,9 @@ import java.util.Date;
 
 /**
  *
- * @author furqan.ahmad
+ * @author Furqan
  */
-public class Domain {
+public class Company {
     private long id;
     private String name;
     
@@ -23,23 +23,19 @@ public class Domain {
     private Date updatedAt;
     
     private byte isDeleted;
-    
-    public Domain() {
+
+    public Company() {
     }
 
-    public Domain(long domainId, String domainName) {
-        this.id = domainId;
-        this.name = domainName;
-    }
-
-    public Domain(long id, String name, Date created_at, Date updated_at, byte isDeleted) {
+    public Company(long id, String name, Date createdAt, Date updatedAt, byte isDeleted) {
         this.id = id;
         this.name = name;
-        this.createdAt = created_at;
-        this.updatedAt = updated_at;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.isDeleted = isDeleted;
     }
 
+    
     /**
      * @return the id
      */
