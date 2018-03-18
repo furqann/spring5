@@ -44,25 +44,10 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
             </props>
         </property>
     </bean>
-<!--    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="ds" />
-        <property name="packagesToScan" value="com.resolve.api.model"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">none</prop>             
-            </props>
-        </property>
-    </bean>-->
+
     <bean id="txManager"
       class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <tx:annotation-driven transaction-manager="txManager"/>
-    <!--
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.annotations.reflection.JPAMetadataProvider</value>
-        </property>  
-    -->
 </beans>
