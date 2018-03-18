@@ -11,6 +11,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:component-scan base-package="com.resolve.api" />
     <mvc:annotation-driven />
+    
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
@@ -28,5 +29,40 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     </bean>
     <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="ds"></property>
-    </bean>   
+    </bean>
+    <bean id="sessionFactory"
+      class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource"
+          ref="ds"/>
+        <property name="packagesToScan"
+          value="com.resolve.api.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>    
+            </props>
+        </property>
+    </bean>
+<!--    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="ds" />
+        <property name="packagesToScan" value="com.resolve.api.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>             
+            </props>
+        </property>
+    </bean>-->
+    <bean id="txManager"
+      class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="txManager"/>
+    <!--
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.annotations.reflection.JPAMetadataProvider</value>
+        </property>  
+    -->
 </beans>

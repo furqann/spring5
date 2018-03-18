@@ -6,22 +6,36 @@
 package com.resolve.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
+
 
 /**
  *
  * @author Furqan
  */
-public class Company {
+@Entity
+public class Company implements Serializable {
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
+    @Column
     private String name;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss a", timezone="Asia/Karachi")
+    @Column(name = "created_at")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdAt;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss a", timezone="Asia/Karachi")
+    @Column(name = "updated_at")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updatedAt;
     
+    @Column
     private byte isDeleted;
 
     public Company() {
