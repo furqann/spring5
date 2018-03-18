@@ -6,40 +6,50 @@
 package com.resolve.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
+
 
 /**
  *
- * @author furqan.ahmad
+ * @author Furqan
  */
-public class Domain {
+@Entity
+public class Company implements Serializable {
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
+    @Column
     private String name;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss a", timezone="Asia/Karachi")
+    @Column(name = "created_at")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdAt;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss a", timezone="Asia/Karachi")
+    @Column(name = "updated_at")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updatedAt;
     
+    @Column
     private byte isDeleted;
-    
-    public Domain() {
+
+    public Company() {
     }
 
-    public Domain(long domainId, String domainName) {
-        this.id = domainId;
-        this.name = domainName;
-    }
-
-    public Domain(long id, String name, Date created_at, Date updated_at, byte isDeleted) {
+    public Company(long id, String name, Date createdAt, Date updatedAt, byte isDeleted) {
         this.id = id;
         this.name = name;
-        this.createdAt = created_at;
-        this.updatedAt = updated_at;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.isDeleted = isDeleted;
     }
 
+    
     /**
      * @return the id
      */
