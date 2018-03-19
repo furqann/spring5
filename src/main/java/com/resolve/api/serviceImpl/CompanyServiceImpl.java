@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 //    }
     @Override
     public List<Company> listCompanies() {
-        String query = "select * from company";
+//        String query = "select * from company";
         return sessionFactory.getCurrentSession().createQuery("from Company").list();
 //        return template.query(query, new RowMapper<Company>() {
 //            @Override
@@ -62,20 +63,22 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void save(Company company) {
-        final String name = company.getName();
-        KeyHolder key = new GeneratedKeyHolder();
-        template.update(new PreparedStatementCreator() {
-
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String query = "INSERT INTO company (name,CREATED_AT,ISDELETED) VALUES (?,sysdate,0)";
-                final PreparedStatement ps = connection.prepareStatement(query, new String[]{"id"});
-                ps.setString(1, name);
-                return ps;
-            }
-        }, key);
-
-        company.setId(key.getKey().longValue());
+       company.setCreatedAt(new Date());
+        sessionFactory.getCurrentSession().save(company);
+//        final String name = company.getName();
+//        KeyHolder key = new GeneratedKeyHolder();
+//        template.update(new PreparedStatementCreator() {
+//
+//            @Override
+//            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//                String query = "INSERT INTO company (name,CREATED_AT,ISDELETED) VALUES (?,sysdate,0)";
+//                final PreparedStatement ps = connection.prepareStatement(query, new String[]{"id"});
+//                ps.setString(1, name);
+//                return ps;
+//            }
+//        }, key);
+//
+//        company.setId(key.getKey().longValue());
     }
 
     @Override

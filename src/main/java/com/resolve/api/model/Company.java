@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class Company implements Serializable {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     @Column
@@ -27,21 +27,21 @@ public class Company implements Serializable {
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss a", timezone="Asia/Karachi")
     @Column(name = "created_at")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createdAt;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss a", timezone="Asia/Karachi")
     @Column(name = "updated_at")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updatedAt;
     
     @Column
-    private byte isDeleted;
+    private boolean isDeleted;
 
     public Company() {
     }
 
-    public Company(long id, String name, Date createdAt, Date updatedAt, byte isDeleted) {
+    public Company(long id, String name, Date createdAt, Date updatedAt, boolean isDeleted) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -109,14 +109,14 @@ public class Company implements Serializable {
     /**
      * @return the isDeleted
      */
-    public byte getIsDeleted() {
+    public boolean getIsDeleted() {
         return isDeleted;
     }
 
     /**
      * @param isDeleted the isDeleted to set
      */
-    public void setIsDeleted(byte isDeleted) {
+    public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 }

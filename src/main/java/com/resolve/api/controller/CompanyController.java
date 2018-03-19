@@ -29,7 +29,8 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(value = "/company", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/company", method = RequestMethod.GET, 
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Company>> listAllCompanies() {
         return new ResponseEntity<>(companyService.listCompanies(), HttpStatus.OK);
     }
