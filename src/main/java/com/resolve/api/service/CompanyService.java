@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CompanyService {
     public List<Company> listCompanies();
-    public Company findById();
+    public Company findById(long id);
     public void save(Company company);
     public void update(long id, Company company);
     public void delete(long id);

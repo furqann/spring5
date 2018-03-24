@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Furqan
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
@@ -57,11 +58,13 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company findById() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Company findById(long id) {
+        Company company = sessionFactory.getCurrentSession().get(Company.class, id);
+        return company != null ? company: null;
     }
 
     @Override
+    @Transactional
     public void save(Company company) {
        company.setCreatedAt(new Date());
         sessionFactory.getCurrentSession().save(company);
@@ -82,13 +85,23 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Transactional
     public void update(long id, Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Company companyInDb = sessionFactory.getCurrentSession().find(Company.class, id);
+        companyInDb.setName(company.getName());
+        companyInDb.setUpdatedAt(new Date());  
+        sessionFactory.getCurrentSession().update(companyInDb);
+        
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session =  sessionFactory.getCurrentSession();
+        Company companyInDb = session.get(Company.class, id);
+        session.delete(companyInDb);
+        session.flush();
     }
 
 }
