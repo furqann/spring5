@@ -1,4 +1,4 @@
-# Spring 5
+# Spring5
 Startup template of Spring MVC 5 using IDE Netbean
 #### Project type
 Maven
