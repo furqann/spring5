@@ -1,5 +1,5 @@
 # Spring 5
-Startup template of Spring MVC 5 using IDE Netbean
+Startup template of Spring MVC using IDE Netbean
 #### Project type
 Maven
 # Resources 
