@@ -1,7 +1,7 @@
 # Spring 5
 Startup template of Spring MVC using IDE Netbean
-#### Project type
+### Project type
 Maven
-# Resources 
+### Resources 
 Following instruction: http://websystique.com/springmvc/spring-mvc-4-restful-web-services-crud-example-resttemplate/
 http://www.baeldung.com/hibernate-5-spring
